@@ -4,6 +4,8 @@ The aim of this course is to learn to design data models, build data warehouses 
 
 ![Icon](uda_dend_banner.jpeg)
 
+![Udacity DEND banner](uda_dend_banner.jpeg)
+
 ## Course 1: Data Modeling
 ### Introduction to Data Modeling
 - Understand the purpose of data modeling
