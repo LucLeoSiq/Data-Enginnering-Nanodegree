@@ -2,8 +2,6 @@
 Projects done during the Data Engineering Nanodegree by Udacity:
 The aim of this course is to learn to design data models, build data warehouses and data lakes, automate data pipelines, and work with massive datasets.
 
-![Icon](uda_dend_banner.jpeg)
-
 ![Udacity DEND banner](uda_dend_banner.jpeg)
 
 ## Course 1: Data Modeling
