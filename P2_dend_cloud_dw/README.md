@@ -10,4 +10,4 @@ The song bucket has all the files under the same directory, while the event buck
 The Redshift service is where data will be ingested and transformed,
 
 # Schema
-![](https://r766469c826419xjupyterlr5tapor7.udacity-student-workspaces.com/files/Modelo_DE_DW_03.PNG?_xsrf=2%7C5087ea5c%7Cc5daf650716354804650c2e1e5a6a885%7C1591143045)
+![](Modelo_DE_DW_03.PNG)
