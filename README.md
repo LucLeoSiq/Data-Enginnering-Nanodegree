@@ -43,3 +43,24 @@ The aim of this course is to learn to design data models, build data warehouses 
 - Design an optimized table by selecting the appropriate distribution style and sorting key
 
 #### Project 2: Data Infrastructure on the Cloud
+
+
+## Course 3: Data Lakes with Spark
+### The Power of Spark
+- Understand the big data ecosystem
+- Understand when to use Spark and when not to use it
+
+### Data Wrangling with Spark
+- Manipulate data with SparkSQL and Spark Dataframes
+- Use Spark for ETL purposes
+
+### Debugging and Optimization
+- Troubleshoot common errors and optimize their code using the Spark WebUI
+
+### Introduction to Data Lakes
+- Understand the purpose and evolution of data lakes
+- Implement data lakes on Amazon S3, EMR, Athena, and Amazon Glue
+- Use Spark to run ELT processes and analytics on data of diverse sources, structures, and vintages
+- Understand the components and issues of data lakes
+
+#### Project 3: Big Data with Spark
