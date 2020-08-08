@@ -26,9 +26,9 @@ class LoadFactOperator(BaseOperator):
                  *args, **kwargs):
 
         super(LoadFactOperator, self).__init__(*args, **kwargs)
-        # Map params here
-        # Example:
-        # self.conn_id = conn_id
+        self.redshift_conn_id= redshift_conn_id,
+        self.table= table,
+        self.sql_stmt=sql_stmt
 
     def execute(self, context):
         self.log.info('LoadFactOperator not implemented yet')
