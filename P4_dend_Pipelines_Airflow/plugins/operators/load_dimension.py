@@ -17,15 +17,18 @@ class LoadDimensionOperator(BaseOperator):
 
     @apply_defaults
     def __init__(self,
-                 # Define your operators params (with defaults) here
-                 # Example:
-                 # conn_id = your-connection-name
-                 *args, **kwargs):
+                redshift_conn_id=""
+                table=""
+                sql_stmt=""
+                truncate=False,
+                *args, **kwargs):
 
         super(LoadDimensionOperator, self).__init__(*args, **kwargs)
-        # Map params here
-        # Example:
-        # self.conn_id = conn_id
+        self.redshift_conn_id= redshift_conn_id,
+        self.table= table,
+        self.sql_stmt=sql_stmt
+        self.truncate=truncate
+
 
     def execute(self, context):
         self.log.info('LoadDimensionOperator not implemented yet')
