@@ -20,9 +20,9 @@ class LoadFactOperator(BaseOperator):
 
     @apply_defaults
     def __init__(self,
-                redshift_conn_id=""
-                table=""
-                sql_stmt=""
+                redshift_conn_id="",
+                table="",
+                sql_stmt="",
                  *args, **kwargs):
 
         super(LoadFactOperator, self).__init__(*args, **kwargs)
