@@ -13,6 +13,11 @@ class LoadFactOperator(BaseOperator):
 
     ui_color = '#F98866'
 
+    load_fact_sql ="""
+        INSERT INTO {}
+        {}
+    """
+
     @apply_defaults
     def __init__(self,
                 redshift_conn_id=""
