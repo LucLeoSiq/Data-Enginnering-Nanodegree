@@ -41,4 +41,17 @@ class LoadDimensionOperator(BaseOperator):
 
 
     def execute(self, context):
-        self.log.info('LoadDimensionOperator not implemented yet')
+        redshift= postgres_hook(postgres_conn_id=self.redshift_conn_id)
+
+        if self.truncate:
+            self.log.info(f"Truncating dimension table: {self.table}")
+            redshift.run(LoadDimensionOperator.truncate_dim_sql.format(self.table))
+
+        self.log.info(f"Loading dimension table {self.table}")
+        formatted_sql = LoadFactOperator.truncate_dim_sql.format(
+            self.table,
+            self.sql_stmt
+        )
+
+        self.log.info(f"Executing Query: {formatted_sql}")
+        redshift.run(formatted_sql)
