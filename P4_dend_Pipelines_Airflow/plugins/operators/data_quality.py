@@ -25,4 +25,17 @@ class DataQualityOperator(BaseOperator):
         self.table=table
 
     def execute(self, context):
-        self.log.info('DataQualityOperator not implemented yet')
+        redshift= postgres_hook(postgres_conn_id=self.redshift_conn_id)
+
+        for table in self.tables:
+            records = redshift.getrecords(f"SELECT COUNT(*) FROM {table}")
+            # Checks if table has any data
+            if len(records) < 1 or len(records[0]) < 1:
+                self.log.error(f"{table} returned no results")
+                raise ValueError(f"Data quality check failed. {table} returned no results")
+
+            n_records = records[0][0]
+            if n_records == 0:
+                self.log.error(f"No records present in destination table {table}")
+                raise ValueError(f"No records present in destination {table}")
+            self.log.info(f"Data quality on table {table} check passed with {n_records} records")
