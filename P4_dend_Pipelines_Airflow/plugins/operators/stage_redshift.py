@@ -33,7 +33,7 @@ class StageToRedshiftOperator(BaseOperator):
                  table="",
                  s3_bucket="",
                  s3_key="",
-                 delimiter=",",
+                 extra_params="",
                  *args, **kwargs):
 
         super(StageToRedshiftOperator, self).__init__(*args, **kwargs)
@@ -51,7 +51,7 @@ class StageToRedshiftOperator(BaseOperator):
 
        # self.log.info("Clearing data from destination Redshift table")
        # redshift.run(f"DELETE FROM {self.table}")
-        
+
         self.log.info("Copying data from S3 to Redshift")
         rendered_key = self.s3_key.format(**context)
         s3_path = f"s3://{self.s3_bucket}/{rendered_key}"
