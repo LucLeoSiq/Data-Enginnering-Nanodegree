@@ -26,12 +26,12 @@ class LoadFactOperator(BaseOperator):
                  *args, **kwargs):
 
         super(LoadFactOperator, self).__init__(*args, **kwargs)
-        self.redshift_conn_id= redshift_conn_id,
-        self.table= table,
+        self.redshift_conn_id= redshift_conn_id
+        self.table= table
         self.sql_stmt=sql_stmt
 
     def execute(self, context):
-        redshift= postgres_hook(postgres_conn_id=self.redshift_conn_id)
+        redshift= PostgresHook(postgres_conn_id=self.redshift_conn_id)
 
         formatted_sql = LoadFactOperator.load_fact_sql.format(
             self.table,
