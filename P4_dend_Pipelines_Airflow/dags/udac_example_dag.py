@@ -19,9 +19,9 @@ default_args = {
     'catchup_by_default': False
 }
 
-dag = DAG('udac_example_dag',
+dag = DAG('udac_example2_dag',
           default_args=default_args,
-          description='Load and transform data in Redshift with Airflow',
+          description='Load and transform data in Redshift with Airflow'
         )
 
 start_operator = DummyOperator(task_id='Begin_execution',  dag=dag)
@@ -60,7 +60,7 @@ load_user_dimension_table = LoadDimensionOperator(
     task_id='Load_user_dim_table',
     dag=dag,
     redshift_conn_id="redshift",
-    table="user",
+    table="users",
     truncate=True,
     sql_stmt=SqlQueries.user_table_insert
 )
@@ -69,7 +69,7 @@ load_song_dimension_table = LoadDimensionOperator(
     task_id='Load_song_dim_table',
     dag=dag,
     redshift_conn_id="redshift",
-    table="song",
+    table="songs",
     truncate=True,
     sql_stmt=SqlQueries.song_table_insert
 )
@@ -78,7 +78,7 @@ load_artist_dimension_table = LoadDimensionOperator(
     task_id='Load_artist_dim_table',
     dag=dag,
     redshift_conn_id="redshift",
-    table="artist",
+    table="artists",
     truncate=True,
     sql_stmt=SqlQueries.artist_table_insert
 )
