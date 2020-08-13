@@ -25,7 +25,7 @@ class DataQualityOperator(BaseOperator):
         self.table=table
 
     def execute(self, context):
-        redshift= postgres_hook(postgres_conn_id=self.redshift_conn_id)
+        redshift= PostgresHook(postgres_conn_id=self.redshift_conn_id)
 
         for table in self.tables:
             records = redshift.getrecords(f"SELECT COUNT(*) FROM {table}")
