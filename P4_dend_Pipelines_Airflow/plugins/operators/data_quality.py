@@ -11,31 +11,43 @@ from airflow.utils.decorators import apply_defaults
 # task should retry and fail eventually.
 
 class DataQualityOperator(BaseOperator):
-
     ui_color = '#89DA59'
 
     @apply_defaults
     def __init__(self,
+                 dq_check=[],
                  redshift_conn_id="",
-                 table="",
                  *args, **kwargs):
 
         super(DataQualityOperator, self).__init__(*args, **kwargs)
-        self.redshift_conn_id=redshift_conn_id,
-        self.table=table
+        self.dq_check = dq_check
+        self.redshift_conn_id = redshift_conn_id
 
     def execute(self, context):
-        redshift= PostgresHook(postgres_conn_id=self.redshift_conn_id)
+        if len(self.dq_check) <= 0:
+            self.log.info("No data quality checks provided")
+            return
 
-        for table in self.tables:
-            records = redshift.getrecords(f"SELECT COUNT(*) FROM {table}")
-            # Checks if table has any data
-            if len(records) < 1 or len(records[0]) < 1:
-                self.log.error(f"{table} returned no results")
-                raise ValueError(f"Data quality check failed. {table} returned no results")
+        redshift_hook = PostgresHook(self.redshift_conn_id)
+        error_count = 0
+        failing_tests = []
 
-            n_records = records[0][0]
-            if n_records == 0:
-                self.log.error(f"No records present in destination table {table}")
-                raise ValueError(f"No records present in destination {table}")
-            self.log.info(f"Data quality on table {table} check passed with {n_records} records")
+        for check in self.dq_check:
+            sql = check.get('check_sql')
+            exp_result = check.get('expected_result')
+
+            try:
+                self.log.info(f"Running query: {sql}")
+                records = redshift_hook.get_records(sql)[0]
+            except Exception as e:
+                self.log.info(f"Query failed with exception: {e}")
+
+            if exp_result != records[0]:
+                error_count += 1
+                failing_tests.append(sql)
+
+        if error_count > 0:
+            self.log.info(failing_tests)
+            raise ValueError('DQ check failed')
+        else:
+            self.log.info("All DQ checks OK!")
