@@ -87,6 +87,3 @@ The aim of this course is to learn to design data models, build data warehouses 
 - Monitor data pipelines
 
 #### Project 4: Data Pipelines with Airflow
-
-## Capstone Project: Movie Data Lake
-In the capstone project, each project is unique to the student. They’ll define the scope of the project; gather data from several different data sources; transform, combine, and summarize it; and create a clean database for others to analyze.
